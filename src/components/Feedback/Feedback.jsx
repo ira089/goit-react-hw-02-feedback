@@ -11,17 +11,37 @@ class Feedback extends Component {
     neutral: 0,
     bad: 0,
   };
+
   leaveFeedback = ev => {
     // console.log(ev.target.name);
-    const counterStat = ev.target.name;
-    console.log(counterStat);
+    const counterStatItem = ev.target.name;
+    console.log(counterStatItem);
     this.setState(prevState => {
       // console.log(prevState);
-      return { [counterStat]: (prevState[counterStat] += 1) };
+      return { [counterStatItem]: (prevState[counterStatItem] += 1) };
     });
   };
 
+  countTotalFeedback() {
+    const statValues = Object.values(this.state);
+    // console.log(statValues);
+    const totalStat = statValues.reduce((total, value) => total + value, 0);
+    return totalStat;
+  }
+
+  countPositiveFeedbackPercentage() {
+    const total = this.countTotalFeedback();
+    if (!total) {
+      return 0;
+    }
+    const positiveFeedback = this.state.good;
+    console.log(positiveFeedback);
+    return Number(((positiveFeedback / total) * 100).toFixed(2));
+  }
+
   render() {
+    const totalStatistic = this.countTotalFeedback();
+    const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
     return (
       <div>
         <div className={styles.blockFeedback}>
@@ -38,15 +58,13 @@ class Feedback extends Component {
         <div className={styles.blockStatistics}>
           <h2 className={styles.title}>Statistics</h2>
 
-          <ul className={styles.statisticsList}>
-            <FeedbackStatistic
-              // items={Feedback.BtnOptions}
-              // items={this.state}
-              items={this.state}
-            />
-            {/* <li>3</li>
+          <FeedbackStatistic
+            items={this.state}
+            total={totalStatistic}
+            positiveFeedbackPercentage={positiveFeedbackPercentage}
+          />
+          {/* <li>3</li>
             <li>4</li> */}
-          </ul>
         </div>
       </div>
     );

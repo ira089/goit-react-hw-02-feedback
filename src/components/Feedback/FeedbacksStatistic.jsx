@@ -1,6 +1,6 @@
 import styles from './feedback.module.css';
 
-const FeedbackStatistic = ({ items }) => {
+const FeedbackStatistic = ({ items, total, positiveFeedbackPercentage }) => {
   console.log(items);
   console.log(items.good);
   const arrItems = Object.keys(items);
@@ -12,6 +12,10 @@ const FeedbackStatistic = ({ items }) => {
           {arrItem}: {items[arrItem]}
         </li>
       ))}
+      <li className={styles.item}>Total: {total}</li>
+      <li className={styles.item}>
+        Positive feedback: {positiveFeedbackPercentage}%
+      </li>
     </ul>
   );
 };
