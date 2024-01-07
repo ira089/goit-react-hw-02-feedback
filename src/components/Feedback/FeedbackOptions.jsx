@@ -1,6 +1,6 @@
 import styles from './feedback.module.css';
 
-const FeedbackBtn = ({ items, leaveFeedback }) => {
+const FeedbackOptions = ({ items, leaveFeedback }) => {
   const arrItems = Object.keys(items);
   const buttonElements = arrItems.map(arrItem => (
     <button
@@ -16,4 +16,4 @@ const FeedbackBtn = ({ items, leaveFeedback }) => {
   return buttonElements;
 };
 
-export default FeedbackBtn;
+export default FeedbackOptions;

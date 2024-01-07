@@ -1,10 +1,9 @@
-// import Feedback from './Feedback/Feedback';
 import { Component } from 'react';
 import styles from './Feedback/feedback.module.css';
 import Section from './Feedback/Section';
 import Notification from './Feedback/Notification';
-import FeedbackBtn from './Feedback/FeedbackBtn';
-import FeedbackStatistic from './Feedback/FeedbacksStatistic';
+import FeedbackOptions from './Feedback/FeedbackOptions';
+import Statistics from './Feedback/Statistics';
 
 class App extends Component {
   state = {
@@ -16,9 +15,8 @@ class App extends Component {
   leaveFeedback = ev => {
     // console.log(ev.target.name);
     const counterStatItem = ev.target.name;
-    console.log(counterStatItem);
+
     this.setState(prevState => {
-      // console.log(prevState);
       return { [counterStatItem]: (prevState[counterStatItem] += 1) };
     });
   };
@@ -36,16 +34,16 @@ class App extends Component {
       return 0;
     }
     const positiveFeedback = this.state.good;
-    console.log(positiveFeedback);
+    // console.log(positiveFeedback);
     return Number(((positiveFeedback / total) * 100).toFixed(2));
   }
 
   // const values = Object.values(book);
   nofeedback() {
     const valuesArr = Object.values(this.state);
-    console.log(valuesArr);
+    // console.log(valuesArr);
     const positiveValues = valuesArr.filter(value => value > 0);
-    console.log(positiveValues);
+    // console.log(positiveValues);
     return positiveValues.length;
   }
 
@@ -56,7 +54,7 @@ class App extends Component {
       <div className={styles.wrap}>
         <Section title="Please leave feedback">
           <div className={styles.blockBtn}>
-            <FeedbackBtn
+            <FeedbackOptions
               items={this.state}
               leaveFeedback={this.leaveFeedback}
             />
@@ -64,7 +62,7 @@ class App extends Component {
         </Section>
         {this.nofeedback() ? (
           <Section title="Statistics">
-            <FeedbackStatistic
+            <Statistics
               items={this.state}
               total={totalStatistic}
               positiveFeedbackPercentage={positiveFeedbackPercentage}
